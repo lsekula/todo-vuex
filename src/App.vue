@@ -38,23 +38,23 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <TestVmodel />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import TestVmodel from './components/TestVmodel'
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    TestVmodel
   },
 
   data: () => ({
     //
   }),
-};
+}
 </script>
