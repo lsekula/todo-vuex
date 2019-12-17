@@ -1,45 +1,30 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <v-spacer>spacer</v-spacer>
-
-      <v-text-field
-        solo-inverted
-        flat
-        hide-details
-        label="Szukaj"
-      />
-    </v-app-bar>
-
     <v-content>
       <v-container>
-        <AddNewTask />
-        <TasksList />
+        <v-row justify="center">
+          <v-col cols="12" sm="10" md="8" lg="6">
+            <AddNewTask />
+            <v-divider class="mt-12"></v-divider>
+            <TasksList />
+          </v-col>
+        </v-row>
       </v-container>
-      <!-- <TestVmodel /> -->
     </v-content>
   </v-app>
 </template>
 
 <script>
-import TestVmodel from './TestVmodel'
+import Header from './Header'
 import TasksList from './TasksList'
 import AddNewTask from './AddNewTask'
 
 export default {
   name: 'App',
   components: {
-    TestVmodel,
+    Header,
     TasksList,
     AddNewTask
-  },
-
-  data: () => ({
-
-  })
+  }
 }
 </script>

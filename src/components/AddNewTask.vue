@@ -1,19 +1,25 @@
 <template>
-  <v-form>
-    <!-- :value="newItem.content" @input="newItem.content = $event.target.value" -->
-    <v-text-field
-      ref="NewTask"
-      v-model="newItem.content"
-      :rules="[() => !!newItem.content || 'Podanie treści zadania jest wymagane']"
-      label="Nowe zadanie"
-      @keyup="validateInput()"
-      clearable>
-    </v-text-field>
-    <p class="error" v-if="error.length > 0">{{ error }}</p>
-    <button type="button" name="button" @click="addNewTask(newItem)" :disabled="areErrors">
-      Dodaj
-    </button>
-  </v-form>
+  <v-card>
+    <v-card-text>
+      <v-text-field
+        v-model="newItem.content"
+        :rules="[
+          () => !!newItem.content && newItem.content.length > 3
+            || 'Content should be at least 4 character long',
+          () => !!newItem.content && !taskNames.includes(newItem.content)
+            || 'That content already exists'
+        ]"
+        label="New task"
+        >
+      </v-text-field>
+    </v-card-text>
+    <v-card-actions>
+      <v-btn color="primary" @click="() => { addNewTask(newItem);
+        newItem.content = ''}" :disabled="newItem.content.length < 4">
+        Add
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -24,37 +30,17 @@ export default {
     taskNames: state => state.tasks.all.map(task => task.content)
   }),
 
-
-  methods: {
-    ...mapActions('tasks', [
-      'addNewTask'
-    ]),
-    validateInput() {
-      this.error = ''
-
-      if (this.newItem.content.length < 3) {
-        this.error = 'Treść zadania jest zbyt krótka'
-        return
-      }
-
-      if (this.taskNames.includes(this.newItem.content)) {
-        this.error = 'Zadanie o podanej treści już istnieje'
-        this.areErrors = true
-      } else {
-        this.areErrors = false
-      }
-    }
-  },
+  methods: mapActions('tasks', [
+    'addNewTask'
+  ]),
 
   data: () => ({
     newItem: {
-      "content": "aaa",
+      "content": "",
       "done": false,
       "deadline": "2019-11-30",
       "dateAdded": "2019-12-01"
-    },
-    error: '',
-    areErrors: false,
+    }
   })
 }
 </script>
