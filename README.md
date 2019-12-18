@@ -1,4 +1,6 @@
-# todo-vue
+# todo-vuex
+Todo app based on vuex.
+
 
 ## Project setup
 ```
